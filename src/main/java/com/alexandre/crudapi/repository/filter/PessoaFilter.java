@@ -1,8 +1,9 @@
 package com.alexandre.crudapi.repository.filter;
 
 public class PessoaFilter {
-	
+
 	private String nome;
+	private Integer idade;
 
 	public String getNome() {
 		return nome;
@@ -11,7 +12,13 @@ public class PessoaFilter {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
+
+	public Integer getIdade() {
+		return idade;
+	}
+
+	public void setIdade(Integer idade) {
+		this.idade = idade;
+	}
 
 }

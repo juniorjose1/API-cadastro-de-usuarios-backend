@@ -13,14 +13,14 @@ import org.hibernate.validator.constraints.Range;
 @Entity
 @Table(name = "pessoa")
 public class Pessoa {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotEmpty
 	private String nome;
-	
+
 	@NotNull
 	private Integer idade;
 
@@ -72,7 +72,5 @@ public class Pessoa {
 			return false;
 		return true;
 	}
-	
-	
 
 }

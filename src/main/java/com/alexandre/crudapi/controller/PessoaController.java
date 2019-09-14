@@ -31,44 +31,44 @@ import com.alexandre.crudapi.repository.filter.PessoaFilter;
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaController {
-	
+
 	@Autowired
 	private PessoaRepository pessoaRepository;
-	
+
 	@Autowired
 	private ApplicationEventPublisher publisher;
-	
+
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<Pessoa> pesquisar(PessoaFilter pessoaFilter){
-		return pessoaRepository.filtrar(pessoaFilter);	
+	public List<Pessoa> pesquisar(PessoaFilter pessoaFilter) {
+		return pessoaRepository.filtrar(pessoaFilter);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<Pessoa> listar(@PathVariable Long id){
+	public ResponseEntity<Pessoa> listar(@PathVariable Long id) {
 		Optional<Pessoa> buscarPessoa = pessoaRepository.findById(id);
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(buscarPessoa.get());
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Pessoa> cadastrar(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response){
+	public ResponseEntity<Pessoa> cadastrar(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
 		Pessoa cadastrarPessoa = pessoaRepository.save(pessoa);
-		
+
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, cadastrarPessoa.getId()));
-		
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(cadastrarPessoa);
-		
+
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deletar(@PathVariable Long id){
-		pessoaRepository.deleteById(id);	
+	public void deletar(@PathVariable Long id) {
+		pessoaRepository.deleteById(id);
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<Pessoa> alterar(@PathVariable Long id, @Valid @RequestBody Pessoa pessoa){
+	public ResponseEntity<Pessoa> alterar(@PathVariable Long id, @Valid @RequestBody Pessoa pessoa) {
 		Optional<Pessoa> alterarPessoa = pessoaRepository.findById(id);
 		BeanUtils.copyProperties(pessoa, alterarPessoa.get(), "id");
 		pessoaRepository.save(alterarPessoa.get());

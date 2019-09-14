@@ -17,8 +17,8 @@ import com.alexandre.crudapi.model.Pessoa;
 import com.alexandre.crudapi.model.Pessoa_;
 import com.alexandre.crudapi.repository.filter.PessoaFilter;
 
-public class PessoaRepositoryImpl implements PessoaRepositoryQuery{
-	
+public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
+
 	@PersistenceContext
 	private EntityManager manager;
 
@@ -26,25 +26,27 @@ public class PessoaRepositoryImpl implements PessoaRepositoryQuery{
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery criteria = builder.createQuery(Pessoa.class);
 		Root<Pessoa> root = criteria.from(Pessoa.class);
-		
+
 		Predicate[] predicates = criarRestricoes(pessoaFilter, builder, root);
 		criteria.where(predicates);
-		
+
 		TypedQuery<Pessoa> query = manager.createQuery(criteria);
 		return query.getResultList();
 	}
-	
-	private Predicate[] criarRestricoes(PessoaFilter pessoaFilter, CriteriaBuilder builder,
-			Root<Pessoa> root) {
-		
+
+	private Predicate[] criarRestricoes(PessoaFilter pessoaFilter, CriteriaBuilder builder, Root<Pessoa> root) {
+
 		List<Predicate> predicates = new ArrayList<Predicate>();
-		
-		if(!StringUtils.isEmpty(pessoaFilter.getNome())) {
-			predicates.add(builder.like(
-					builder.lower(root.get(Pessoa_.NOME)), "%" + 
-			pessoaFilter.getNome().toLowerCase() + "%"));
+
+		if (!StringUtils.isEmpty(pessoaFilter.getNome())) {
+			predicates.add(builder.like(builder.lower(root.get(Pessoa_.NOME)),
+					"%" + pessoaFilter.getNome().toLowerCase() + "%"));
 		}
-		
+
+		if (pessoaFilter.getIdade() != null) {
+			predicates.add(builder.equal(root.get(Pessoa_.IDADE), pessoaFilter.getIdade()));
+		}
+
 		return predicates.toArray(new Predicate[predicates.size()]);
 	}
 
