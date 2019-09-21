@@ -9,7 +9,9 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,6 +28,7 @@ import com.alexandre.crudapi.event.RecursoCriadoEvent;
 import com.alexandre.crudapi.model.Pessoa;
 import com.alexandre.crudapi.repository.PessoaRepository;
 import com.alexandre.crudapi.repository.filter.PessoaFilter;
+import com.alexandre.crudapi.service.PessoaService;
 
 @CrossOrigin("http://localhost:4200")
 @RestController
@@ -34,9 +37,21 @@ public class PessoaController {
 
 	@Autowired
 	private PessoaRepository pessoaRepository;
+	
+	@Autowired
+	private PessoaService pessoaService;
 
 	@Autowired
 	private ApplicationEventPublisher publisher;
+	
+	@GetMapping("/relatorio")
+	public ResponseEntity<byte[]> relatorio(PessoaFilter pessoaFilter) throws Exception{
+		byte[] relatorio = pessoaService.relatorioPessoa(pessoaFilter);
+		
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE)
+				.body(relatorio);
+	}
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
