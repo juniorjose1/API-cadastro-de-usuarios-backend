@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,15 +50,20 @@ public class PessoaController {
 	public ResponseEntity<byte[]> relatorio(PessoaFilter pessoaFilter) throws Exception{
 		byte[] relatorio = pessoaService.relatorioPessoa(pessoaFilter);
 		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE);
+		headers.add("Content-Disposition", "attachment; filename=Lista_de_Usuarios.pdf");
+		
 		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE)
+				.headers(headers)
 				.body(relatorio);
 	}
 
+	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<Pessoa> pesquisar(PessoaFilter pessoaFilter) {
-		return pessoaRepository.filtrar(pessoaFilter);
+	public List<Pessoa> buscar(PessoaFilter pessoaFilter){
+		return pessoaRepository.pesquisar(pessoaFilter);
 	}
 
 	@GetMapping("/{id}")

@@ -12,6 +12,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import com.alexandre.crudapi.model.Pessoa;
 import com.alexandre.crudapi.model.Pessoa_;
@@ -21,8 +24,8 @@ public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
 
 	@PersistenceContext
 	private EntityManager manager;
-
-	public List<Pessoa> filtrar(PessoaFilter pessoaFilter) {
+	
+	public List<Pessoa> pesquisar(PessoaFilter pessoaFilter) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery criteria = builder.createQuery(Pessoa.class);
 		Root<Pessoa> root = criteria.from(Pessoa.class);
@@ -33,6 +36,7 @@ public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
 		TypedQuery<Pessoa> query = manager.createQuery(criteria);
 		return query.getResultList();
 	}
+
 
 	private Predicate[] criarRestricoes(PessoaFilter pessoaFilter, CriteriaBuilder builder, Root<Pessoa> root) {
 

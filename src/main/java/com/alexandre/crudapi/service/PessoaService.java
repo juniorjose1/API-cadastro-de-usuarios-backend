@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.alexandre.crudapi.model.Pessoa;
@@ -27,7 +29,7 @@ public class PessoaService {
 	private PessoaRepository pessoaRepository;
 	
 	public byte[] relatorioPessoa(PessoaFilter pessoaFilter) throws Exception {
-		List<Pessoa> dados = pessoaRepository.filtrar(pessoaFilter);
+		List<Pessoa> dados = pessoaRepository.pesquisar(pessoaFilter);
 		
 		InputStream inputStream = this.getClass().getResourceAsStream(
 				"/relatorios/pessoas.jasper");

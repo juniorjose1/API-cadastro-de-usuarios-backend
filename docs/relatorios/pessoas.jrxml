@@ -5,9 +5,9 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="nome" class="com.alexandre.crudapi.model.Pessoa"/>
-	<field name="idade" class="com.alexandre.crudapi.model.Pessoa"/>
-	<field name="id" class="com.alexandre.crudapi.model.Pessoa"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="idade" class="java.lang.Integer"/>
+	<field name="id" class="java.lang.Long"/>
 	<title>
 		<band height="60" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -119,7 +119,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{nome}.getNome()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="485" y="1" width="65" height="24" uuid="723313f7-8444-4a0e-a507-07745fc617ef">
@@ -127,7 +127,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{idade}.getIdade()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{idade}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="5" y="1" width="100" height="23" uuid="b062b112-005a-4101-9655-04063dcec9d7">
@@ -136,7 +136,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{id}.getId()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -160,4 +160,35 @@
 			</textField>
 		</band>
 	</pageFooter>
+	<lastPageFooter>
+		<band height="25">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="227" y="0" width="139" height="25" uuid="eeee6403-e41e-45b7-a47d-82d2fdc4a036">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Total de Pessoas: " + $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="457" y="0" width="100" height="25" uuid="e020c116-7dca-418e-bcc0-9229237bb1fd">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="139" height="25" uuid="a15c4e37-3351-458f-ad9c-f335f6a75620">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Data " + DATEFORMAT(TODAY(), "dd/MM/yyyy")]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
 </jasperReport>
