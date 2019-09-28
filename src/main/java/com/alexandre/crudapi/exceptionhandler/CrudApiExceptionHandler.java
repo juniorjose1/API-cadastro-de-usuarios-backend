@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -16,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -57,6 +59,16 @@ public class CrudApiExceptionHandler extends ResponseEntityExceptionHandler {
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+	}
+	
+	@ExceptionHandler({ AuthenticationException.class })
+	public ResponseEntity<Object> AuthenticationException(Exception ex, WebRequest request) {
+		String mensagemUsuario = "Usuário ou Senha Inválidos";
+		String mensagemDesenvolvedor = Optional.ofNullable(ex.getCause()).orElse(ex).toString();
+		
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erros);
 	}
 
 	private List<Erro> criarListaDeErros(BindingResult bindingResult) {
