@@ -32,7 +32,7 @@ import com.alexandre.crudapi.repository.PessoaRepository;
 import com.alexandre.crudapi.repository.filter.PessoaFilter;
 import com.alexandre.crudapi.service.PessoaService;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("https://cadastro-de-usuarios-angular.herokuapp.com/")
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaController {
