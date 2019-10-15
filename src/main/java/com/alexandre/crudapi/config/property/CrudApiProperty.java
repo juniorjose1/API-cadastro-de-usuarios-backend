@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("crud")
 public class CrudApiProperty {
 	
-	private String originPermitida = "http://localhost:4200";
+	private String originPermitida = "https://cadastro-de-usuarios-angular.herokuapp.com/";
 	
 	
 	public String getOriginPermitida() {
