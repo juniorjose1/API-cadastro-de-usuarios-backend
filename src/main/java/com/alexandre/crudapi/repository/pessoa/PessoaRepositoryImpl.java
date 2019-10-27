@@ -50,6 +50,11 @@ public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
 		if (pessoaFilter.getIdade() != null) {
 			predicates.add(builder.equal(root.get(Pessoa_.IDADE), pessoaFilter.getIdade()));
 		}
+		
+		if (!StringUtils.isEmpty(pessoaFilter.getSexo())) {
+			predicates.add(builder.like(builder.lower(root.get(Pessoa_.SEXO)), 
+					"%" + pessoaFilter.getSexo().toLowerCase() + "%"));
+		}
 
 		return predicates.toArray(new Predicate[predicates.size()]);
 	}

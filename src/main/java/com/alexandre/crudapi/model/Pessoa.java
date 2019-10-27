@@ -21,6 +21,17 @@ public class Pessoa {
 
 	@NotNull
 	private Integer idade;
+	
+	@NotEmpty
+	private String sexo;
+	
+	public String getSexo() {
+		return sexo;
+	}
+	
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
 
 	public Long getId() {
 		return id;

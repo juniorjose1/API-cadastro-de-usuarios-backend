@@ -8,6 +8,7 @@
 	<field name="nome" class="java.lang.String"/>
 	<field name="idade" class="java.lang.Integer"/>
 	<field name="id" class="java.lang.Long"/>
+	<field name="sexo" class="java.lang.String"/>
 	<title>
 		<band height="60" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -57,7 +58,7 @@
 				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="80" y="1" width="400" height="25" uuid="75802bfe-41bf-40f9-9a24-11cec4d927a0">
+				<reportElement x="80" y="1" width="270" height="25" uuid="75802bfe-41bf-40f9-9a24-11cec4d927a0">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -72,6 +73,19 @@
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Idade]]></text>
+			</staticText>
+			<line>
+				<reportElement x="350" y="0" width="1" height="25" uuid="c0e220c9-76fa-417f-96a6-4c1a491aa019">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="350" y="1" width="130" height="25" uuid="e98acfa5-3a7b-4b27-accb-d8bafc692adf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Sexo]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -115,7 +129,7 @@
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="90" y="1" width="387" height="23" uuid="a9b5a18c-b9af-4e06-8b67-eb27bead58dc">
+				<reportElement x="90" y="1" width="260" height="23" uuid="a9b5a18c-b9af-4e06-8b67-eb27bead58dc">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
@@ -138,6 +152,22 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="366" y="0" width="65" height="24" uuid="19b799d1-fddc-443e-a4fc-e0a16770b74a">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="350" y="0" width="1" height="25" uuid="981e140e-5722-4884-b137-5f0211dd305b">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
 		</band>
 	</detail>
 	<pageFooter>
