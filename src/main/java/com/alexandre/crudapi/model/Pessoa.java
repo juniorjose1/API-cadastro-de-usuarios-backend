@@ -19,11 +19,14 @@ public class Pessoa {
 	@NotEmpty
 	private String nome;
 
-	@NotNull
-	private Integer idade;
+	@NotEmpty
+	private String idade;
 	
 	@NotEmpty
 	private String sexo;
+	
+	@NotEmpty
+	private String grupo;
 	
 	public String getSexo() {
 		return sexo;
@@ -49,12 +52,20 @@ public class Pessoa {
 		this.nome = nome;
 	}
 
-	public Integer getIdade() {
+	public String getIdade() {
 		return idade;
 	}
 
-	public void setIdade(Integer idade) {
+	public void setIdade(String idade) {
 		this.idade = idade;
+	}
+	
+	public String getGrupo() {
+		return grupo;
+	}
+	
+	public void setGrupo(String grupo) {
+		this.grupo = grupo;
 	}
 
 	@Override

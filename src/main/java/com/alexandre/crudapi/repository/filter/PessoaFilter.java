@@ -3,8 +3,9 @@ package com.alexandre.crudapi.repository.filter;
 public class PessoaFilter {
 
 	private String nome;
-	private Integer idade;
+	private String idade;
 	private String sexo;
+	private String grupo;
 	
 	public String getSexo() {
 		return sexo;
@@ -22,12 +23,20 @@ public class PessoaFilter {
 		this.nome = nome;
 	}
 
-	public Integer getIdade() {
+	public String getIdade() {
 		return idade;
 	}
 
-	public void setIdade(Integer idade) {
+	public void setIdade(String idade) {
 		this.idade = idade;
+	}
+	
+	public String getGrupo() {
+		return grupo;
+	}
+	
+	public void setGrupo(String grupo) {
+		this.grupo = grupo;
 	}
 
 }

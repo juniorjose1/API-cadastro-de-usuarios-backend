@@ -12,10 +12,11 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 
+import com.alexandre.crudapi.dto.PessoaEstatisticaGrupo;
+import com.alexandre.crudapi.dto.PessoaEstatisticaIdade;
+import com.alexandre.crudapi.dto.PessoaEstatisticaSexo;
+import com.alexandre.crudapi.dto.PessoaEstatisticaTotal;
 import com.alexandre.crudapi.model.Pessoa;
 import com.alexandre.crudapi.model.Pessoa_;
 import com.alexandre.crudapi.repository.filter.PessoaFilter;
@@ -24,6 +25,88 @@ public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
 
 	@PersistenceContext
 	private EntityManager manager;
+	
+	@Override
+	public List<PessoaEstatisticaTotal> total() {
+		
+		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
+		
+		CriteriaQuery<PessoaEstatisticaTotal> criteriaQuery = criteriaBuilder.
+				createQuery(PessoaEstatisticaTotal.class);
+		
+		Root<Pessoa> root = criteriaQuery.from(Pessoa.class);
+		
+		criteriaQuery.select(criteriaBuilder.construct(PessoaEstatisticaTotal.class,
+				criteriaBuilder.count(root.get(Pessoa_.id))));
+				
+		
+		TypedQuery<PessoaEstatisticaTotal> typedQuery = manager.createQuery(criteriaQuery);
+		
+			return typedQuery.getResultList();
+	}
+	
+	@Override
+	public List<PessoaEstatisticaGrupo> porGrupo() {
+		
+		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
+		
+		CriteriaQuery<PessoaEstatisticaGrupo> criteriaQuery = criteriaBuilder.
+				createQuery(PessoaEstatisticaGrupo.class);
+		
+		Root<Pessoa> root = criteriaQuery.from(Pessoa.class);
+		
+		criteriaQuery.select(criteriaBuilder.construct(PessoaEstatisticaGrupo.class, 
+				root.get(Pessoa_.grupo),
+				criteriaBuilder.count(root.get(Pessoa_.grupo))));
+				
+		criteriaQuery.groupBy(root.get(Pessoa_.grupo));
+		
+		TypedQuery<PessoaEstatisticaGrupo> typedQuery = manager.createQuery(criteriaQuery);
+		
+			return typedQuery.getResultList();
+	}
+	
+	@Override
+	public List<PessoaEstatisticaIdade> porIdade() {
+		
+		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
+		
+	CriteriaQuery<PessoaEstatisticaIdade> criteriaQuery = criteriaBuilder.
+			createQuery(PessoaEstatisticaIdade.class);
+	
+	Root<Pessoa> root = criteriaQuery.from(Pessoa.class);
+	
+	criteriaQuery.select(criteriaBuilder.construct(PessoaEstatisticaIdade.class, 
+			root.get(Pessoa_.idade),
+			criteriaBuilder.count(root.get(Pessoa_.idade))));
+			
+	criteriaQuery.groupBy(root.get(Pessoa_.idade));
+	
+	TypedQuery<PessoaEstatisticaIdade> typedQuery = manager.createQuery(criteriaQuery);
+	
+		return typedQuery.getResultList();
+	}
+	
+	@Override
+	public List<PessoaEstatisticaSexo> porSexo() {
+		
+		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
+		
+	CriteriaQuery<PessoaEstatisticaSexo> criteriaQuery = criteriaBuilder.
+			createQuery(PessoaEstatisticaSexo.class);
+	
+	Root<Pessoa> root = criteriaQuery.from(Pessoa.class);
+	
+	criteriaQuery.select(criteriaBuilder.construct(PessoaEstatisticaSexo.class, 
+			root.get(Pessoa_.sexo),
+			criteriaBuilder.count(root.get(Pessoa_.sexo))));
+	
+	criteriaQuery.groupBy(root.get(Pessoa_.sexo));
+	
+	TypedQuery<PessoaEstatisticaSexo> typedQuery = manager.createQuery(criteriaQuery);
+	
+		return typedQuery.getResultList();
+	}
 	
 	public List<Pessoa> pesquisar(PessoaFilter pessoaFilter) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
@@ -46,14 +129,20 @@ public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
 			predicates.add(builder.like(builder.lower(root.get(Pessoa_.NOME)),
 					"%" + pessoaFilter.getNome().toLowerCase() + "%"));
 		}
-
-		if (pessoaFilter.getIdade() != null) {
-			predicates.add(builder.equal(root.get(Pessoa_.IDADE), pessoaFilter.getIdade()));
+		
+		if (!StringUtils.isEmpty(pessoaFilter.getIdade())) {
+			predicates.add(builder.like(builder.lower(root.get(Pessoa_.IDADE)), 
+					"%" + pessoaFilter.getIdade().toLowerCase() + "%"));
 		}
 		
 		if (!StringUtils.isEmpty(pessoaFilter.getSexo())) {
 			predicates.add(builder.like(builder.lower(root.get(Pessoa_.SEXO)), 
 					"%" + pessoaFilter.getSexo().toLowerCase() + "%"));
+		}
+		
+		if (!StringUtils.isEmpty(pessoaFilter.getGrupo())) {
+			predicates.add(builder.like(builder.lower(root.get(Pessoa_.GRUPO)), 
+					"%" + pessoaFilter.getGrupo().toLowerCase() + "%"));
 		}
 
 		return predicates.toArray(new Predicate[predicates.size()]);

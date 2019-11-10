@@ -9,8 +9,6 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,6 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alexandre.crudapi.dto.PessoaEstatisticaGrupo;
+import com.alexandre.crudapi.dto.PessoaEstatisticaIdade;
+import com.alexandre.crudapi.dto.PessoaEstatisticaSexo;
+import com.alexandre.crudapi.dto.PessoaEstatisticaTotal;
 import com.alexandre.crudapi.event.RecursoCriadoEvent;
 import com.alexandre.crudapi.model.Pessoa;
 import com.alexandre.crudapi.repository.PessoaRepository;
@@ -45,6 +47,26 @@ public class PessoaController {
 
 	@Autowired
 	private ApplicationEventPublisher publisher;
+	
+	@GetMapping("/estatisticas/total")
+	public List<PessoaEstatisticaTotal> total(){
+		return this.pessoaRepository.total();
+	}
+	
+	@GetMapping("/estatisticas/por-grupo")
+	public List<PessoaEstatisticaGrupo> porGrupo(){
+		return this.pessoaRepository.porGrupo();
+	}
+	
+	@GetMapping("/estatisticas/por-idade")
+	public List<PessoaEstatisticaIdade> porIdade(){
+		return this.pessoaRepository.porIdade();
+	}
+	
+	@GetMapping("/estatisticas/por-sexo")
+	public List<PessoaEstatisticaSexo> porSexo(){
+		return this.pessoaRepository.porSexo();
+	}
 	
 	@GetMapping("/relatorio")
 	public ResponseEntity<byte[]> relatorio(PessoaFilter pessoaFilter) throws Exception{
@@ -81,6 +103,12 @@ public class PessoaController {
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(cadastrarPessoa);
 
+	}
+	
+	@DeleteMapping
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deletarTudo() {
+		pessoaRepository.deleteAll();
 	}
 
 	@DeleteMapping("/{id}")
