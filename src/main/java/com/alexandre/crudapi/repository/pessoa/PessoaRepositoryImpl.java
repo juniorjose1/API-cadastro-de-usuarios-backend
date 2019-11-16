@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.alexandre.crudapi.dto.PessoaEstatisticaGrupo;
 import com.alexandre.crudapi.dto.PessoaEstatisticaIdade;
 import com.alexandre.crudapi.dto.PessoaEstatisticaSexo;
+import com.alexandre.crudapi.dto.PessoaEstatisticaStatus;
 import com.alexandre.crudapi.dto.PessoaEstatisticaTotal;
 import com.alexandre.crudapi.model.Pessoa;
 import com.alexandre.crudapi.model.Pessoa_;
@@ -25,6 +26,27 @@ public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
 
 	@PersistenceContext
 	private EntityManager manager;
+	
+	@Override
+	public List<PessoaEstatisticaStatus> porStatus() {
+		
+		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
+		
+		CriteriaQuery<PessoaEstatisticaStatus> criteriaQuery = criteriaBuilder.
+				createQuery(PessoaEstatisticaStatus.class);
+		
+		Root<Pessoa> root = criteriaQuery.from(Pessoa.class);
+		
+		criteriaQuery.select(criteriaBuilder.construct(PessoaEstatisticaStatus.class, 
+				root.get(Pessoa_.status),
+				criteriaBuilder.count(root.get(Pessoa_.STATUS))));
+				
+		criteriaQuery.groupBy(root.get(Pessoa_.status));
+		
+		TypedQuery<PessoaEstatisticaStatus> typedQuery = manager.createQuery(criteriaQuery);
+		
+			return typedQuery.getResultList();
+	}
 	
 	@Override
 	public List<PessoaEstatisticaTotal> total() {
@@ -143,6 +165,11 @@ public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
 		if (!StringUtils.isEmpty(pessoaFilter.getGrupo())) {
 			predicates.add(builder.like(builder.lower(root.get(Pessoa_.GRUPO)), 
 					"%" + pessoaFilter.getGrupo().toLowerCase() + "%"));
+		}
+		
+		if (!StringUtils.isEmpty(pessoaFilter.getStatus())) {
+			predicates.add(builder.like(builder.lower(root.get(Pessoa_.STATUS)), 
+					"%" + pessoaFilter.getStatus().toLowerCase() + "%"));
 		}
 
 		return predicates.toArray(new Predicate[predicates.size()]);

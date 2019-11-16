@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alexandre.crudapi.dto.PessoaEstatisticaGrupo;
 import com.alexandre.crudapi.dto.PessoaEstatisticaIdade;
 import com.alexandre.crudapi.dto.PessoaEstatisticaSexo;
+import com.alexandre.crudapi.dto.PessoaEstatisticaStatus;
 import com.alexandre.crudapi.dto.PessoaEstatisticaTotal;
 import com.alexandre.crudapi.event.RecursoCriadoEvent;
 import com.alexandre.crudapi.model.Pessoa;
@@ -47,6 +48,11 @@ public class PessoaController {
 
 	@Autowired
 	private ApplicationEventPublisher publisher;
+	
+	@GetMapping("/estatisticas/por-status") 
+	public List<PessoaEstatisticaStatus> porStatus(){
+		return this.pessoaRepository.porStatus();		
+	}
 	
 	@GetMapping("/estatisticas/total")
 	public List<PessoaEstatisticaTotal> total(){

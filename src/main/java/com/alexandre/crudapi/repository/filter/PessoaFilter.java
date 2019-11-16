@@ -6,6 +6,7 @@ public class PessoaFilter {
 	private String idade;
 	private String sexo;
 	private String grupo;
+	private String status;
 	
 	public String getSexo() {
 		return sexo;
@@ -37,6 +38,14 @@ public class PessoaFilter {
 	
 	public void setGrupo(String grupo) {
 		this.grupo = grupo;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

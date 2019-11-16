@@ -28,6 +28,9 @@ public class Pessoa {
 	@NotEmpty
 	private String grupo;
 	
+	@NotEmpty
+	private String status;
+	
 	public String getSexo() {
 		return sexo;
 	}
@@ -66,6 +69,14 @@ public class Pessoa {
 	
 	public void setGrupo(String grupo) {
 		this.grupo = grupo;
+	}
+	
+	public String getStatus(){
+		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override
