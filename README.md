@@ -3,7 +3,7 @@
 ## Sistema de convidados para casamento utilizando Spring Framework
 
 ### Funcionamento
-<p>Foi desenvolvido uma API RESTful em que é responsável por todas as funções do sistema, ou seja, é nela que é desenvolvido os seguintes itens:</p>
+<p>Foi desenvolvido uma API RESTful em que é responsável por todas as funções do sistema, ou seja, é nela que foi desenvolvido os seguintes itens:</p>
 <ul>
   <li>Métodos para cadastrar, alterar, excluir, pesquisar, exportar e listar</li>
   <li>Armazenamento de todos os registros cadastrados em um banco de dados</li>
