@@ -18,4 +18,4 @@
 <p>Para fazer todos os testes da API, foi utilizado o Postman, que é uma ferramenta para testar requisições via HTTP.</p>
 <p>A API está hospedada em um servidor chamado Heroku em uma versão FREE, mas que suporta JAVA.</p>
 <p>Foi utilizado o GIT para fazer o versionamento, e também para fazer o deploy para o Heroku.</p>
-<p>Para acessar o sistema, basta entrar em http://alejunqueira.com.br e aguardar de 30 segundos a 1 minuto no máximo para que a API Restful seja carregada, e assim listar os convidados cadastrados, pois a API Back-end está hospedada em um servidor FREE.</p>
+<p>Para acessar o sistema, basta entrar em http://alejunqueira.com.br e aguardar de 20 segundos a 40 segundos no máximo para que a API Restful seja carregada, e assim listar os convidados cadastrados, pois a API Back-end está hospedada em um servidor FREE.</p>
