@@ -7,7 +7,7 @@
 <ul>
   <li>Métodos para cadastrar, alterar, excluir, pesquisar, exportar e listar</li>
   <li>Armazenamento de todos os registros cadastrados em um banco de dados</li>
-  <li>Programado as mensagens de erros e/ou incompatibilidades que acontecem com a interação do usuário no sistema</li>
+  <li>Programado as mensagens de erros e/ou incompatibilidades que acontecem com a interação do usuário ao sistema</li>
   <li>Trabalhado a segurança da API utilizando Basic Authentication</li>
 </ul> 
 
